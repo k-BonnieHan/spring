@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- 핵심 객체 -->
+	<bean id="logicImpl" class="pack2.LogicImpl">
+		<constructor-arg>
+			<ref bean="jikwonDao" />
+		</constructor-arg>
+	</bean>
+	<bean id="jikwonDao" class="pack2.JikwonDao" />
+	
+	<!-- AOP -->
+	<bean id="profileAdvice" class="pack2.ProfileAdvice" />
+	<aop:config>
+		<aop:aspect ref="profileAdvice">
+			<aop:pointcut expression="execution(public * pack2..*(..))" id="poi"/>
+			<aop:around method="kbs" pointcut-ref="poi"/>
+		</aop:aspect>
+	</aop:config>
+
+</beans>
+
+

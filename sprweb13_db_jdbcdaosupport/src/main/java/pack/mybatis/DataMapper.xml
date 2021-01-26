@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"><!-- xml에 제약 거는 것 -->
+
+<mapper namespace="dev">
+	<select id="selectJikwon" resultType="jdto">
+		select jikwon_no, jikwon_name, buser_name, jikwon_jik, concat(year(jikwon_ibsail),"년 ", case when month(jikwon_ibsail) between 1 and 3 then "1사분기" when  month(jikwon_ibsail) between 4 and 6 then "2사분기" when  month(jikwon_ibsail) between 7 and 9 then "3사분기" when  month(jikwon_ibsail) between 10 and 12 then "4사분기" end) jikwon_ibsa from jikwon inner join buser on buser_no = buser_num order by buser_name, jikwon_name
+	</select>
+	
+	<select id="countJikwon" parameterType="String" resultType="jdto">
+		select count(*) count from jikwon
+	</select>
+	
+	<select id="selJikwon" parameterType="jform" resultType="jdto">
+		select jikwon_no, jikwon_name, buser_name, jikwon_jik, concat(year(jikwon_ibsail),"년 ", case when month(jikwon_ibsail) between 1 and 3 then "1사분기" when  month(jikwon_ibsail) between 4 and 6 then "2사분기" when  month(jikwon_ibsail) between 7 and 9 then "3사분기" when  month(jikwon_ibsail) between 10 and 12 then "4사분기" end) jikwon_ibsa from jikwon inner join buser on buser_no = buser_num where buser_name = #{buser_name} order by buser_name, jikwon_name
+	</select>
+	
+	<select id="selectBuser" parameterType="bform" resultType="bdto">
+		select buser_no, nvl(buser_name,"기타") buser_name, buser_tel, buser_loc from buser where buser_name = #{buser_name}
+	</select>
+</mapper>

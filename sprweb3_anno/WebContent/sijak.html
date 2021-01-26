@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+요청<br>
+<a href="hello.do">hello(get)</a><br>
+<form action="hello.do" method="post">
+	<input type="submit" value="hello(post)">
+</form>
+<br>
+<br>
+<a href="world.do">world(get)</a><br>
+<form action="world.do" method="post">
+	<input type="submit" value="world(post)">
+</form>
+<br>
+<a href="nice.do">world(get)</a>
+<br>
+<a href="good.do">world(get)</a>
+<br><br>
+<a href="happy.do">happy(get)</a>
+<br>
+<form action="happy.do" method="post">
+	<input type="submit" value="happy(post)">
+</form>
+<br>
+<a href="javascript:func();">happy(post)</a>
+<form name="f"></form>
+<script>
+function func(){
+         f.action="happy.do"; 
+         f.method="post";  //POST방식
+         f.submit();
+}
+</script>
+</body>
+</html>

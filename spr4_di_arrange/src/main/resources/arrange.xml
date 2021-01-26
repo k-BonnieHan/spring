@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 기본은 싱글톤이지만 프로토타입 등 나머지도 사용 가능 -->
+	<bean id="messageImpl" class="pack.business.MessageImpl" 
+				scope="singleton" 
+				c:year="2000" c:myInfo-ref="myInfo" 
+				p:spec="스프링 전문가" p:fileInter-ref="outFileInterImpl" > 
+	<!-- Constructor injection -->
+	<!--  
+		<constructor-arg index="1">
+			<value>홍길동</value> 
+		</constructor-arg>
+		<constructor-arg index="0">
+			<value>안녕하세요</value>
+		</constructor-arg>
+	-->
+		<constructor-arg index="0" type="java.lang.String" value="홍길동" />
+		<constructor-arg index="1" type="String" value="안녕하세요" />
+	    <!--  
+	    <constructor-arg index="2" type="int" value="2000" />
+	    <constructor-arg index="3" type="pack.other.MyInfo" ref="myInfo" />
+	    -->
+	    
+		<!-- setter injection -->
+		<!-- 
+		<property name="spec">
+			<value>정보처리 자격증</value>
+		</property>
+		-->
+		<property name="myInfo">
+			<ref bean="ytn"/>
+		</property>
+		<!--
+		<property name="fileInter">
+			<ref bean="outFileInterImpl"/>
+		</property>
+		-->
+	</bean>
+	
+	<bean id="myInfo" name="ytn,tvn" class="pack.other.MyInfo" scope="singleton"/>
+	
+	<bean id="outFileInterImpl" class="pack.other.OutFileInterImpl">
+		<property name="filePath" value="c:/work/test.txt" />
+	</bean>
+</beans>
